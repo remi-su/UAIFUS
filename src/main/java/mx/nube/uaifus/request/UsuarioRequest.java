@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 
 public class UsuarioRequest {
 
+    private Integer id;
+
     @NotBlank
     @Size(min = 6, max = 16)
     private String usuario;
@@ -19,6 +21,20 @@ public class UsuarioRequest {
 
     public UsuarioRequest() {
 
+    }
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     /**

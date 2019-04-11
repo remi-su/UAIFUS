@@ -50,8 +50,8 @@ public class UsuarioService {
         return listUsers;
     }
 
-    public Usuario getUserById(String id) {
-        Usuario user = usuarioRepository.findById(id);
+    public Usuario getUserById(Integer id) {
+        Usuario user = usuarioRepository.findById(id).get();
 
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -70,10 +70,21 @@ public class UsuarioService {
         return usuario;
     }
 
-    public Usuario deleteUser(String id) {
+    public Usuario deleteUser(Integer id) {
         Usuario usuario = getUserById(id);
         usuarioRepository.delete(usuario);
         return usuario;
+    }
+
+    public Usuario modifyUser(UsuarioRequest request) {
+        Usuario user = new Usuario();
+        user.setId(request.getId());
+        user.setUsuario(request.getUsuario());
+        user.setPassword(request.getPassword());
+
+        usuarioRepository.save(user);
+
+        return user;
     }
 
 }

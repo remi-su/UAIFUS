@@ -1,5 +1,7 @@
 package mx.nube.uaifus.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +14,6 @@ import mx.nube.uaifus.model.Usuario;
 public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
     public Usuario findByUsuario(String usuario);
 
-    public Usuario findById(String id);
-
     public Usuario findByToken(String token);
+
 }

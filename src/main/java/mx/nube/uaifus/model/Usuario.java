@@ -14,7 +14,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Column
     private String usuario;
 
@@ -88,11 +88,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", usuario='" + getUsuario() + "'" +
-            "}";
+        return "{" + " id='" + getId() + "'" + ", usuario='" + getUsuario() + "'" + "}";
     }
-
 
 }

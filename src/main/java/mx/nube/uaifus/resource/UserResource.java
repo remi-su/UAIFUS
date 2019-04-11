@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import mx.nube.uaifus.model.Usuario;
 import mx.nube.uaifus.request.UsuarioRequest;
 import mx.nube.uaifus.service.UsuarioService;
+import java.util.List;
 
 /**
  * UserResource
@@ -28,15 +29,25 @@ public class UserResource {
     private UsuarioService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getUser(@PathVariable String id) {
+    public ResponseEntity<Usuario> getUser(@PathVariable Integer id) {
+
         Usuario usuario = userService.getUserById(id);
 
         return ResponseEntity.status(HttpStatus.FOUND).body(usuario);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuario> modifyUser(@PathVariable String id, @RequestBody UsuarioRequest request) {
-        return null;
+    @GetMapping("")
+    public List<Usuario> getUser() {
+
+        List<Usuario> usuario = userService.getUsers();
+
+        return usuario;
+    }
+
+    @PutMapping("")
+    public ResponseEntity<Usuario> modifyUser(@RequestBody UsuarioRequest request) {
+        Usuario user = userService.modifyUser(request);
+        return ResponseEntity.ok().body(user);
     }
 
     @PostMapping("")
@@ -46,7 +57,7 @@ public class UserResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Usuario> deleteUser(@PathVariable String id) {
+    public ResponseEntity<Usuario> deleteUser(@PathVariable Integer id) {
         Usuario user = userService.deleteUser(id);
         return ResponseEntity.ok().body(user);
     }
