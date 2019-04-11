@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.nube.uaifus.model.Usuario;
@@ -18,8 +19,9 @@ import mx.nube.uaifus.service.UsuarioService;
 /**
  * UserResource
  */
-@RequestMapping("/user")
+
 @RestController
+@RequestMapping("/user")
 public class UserResource {
 
     @Autowired
@@ -34,18 +36,18 @@ public class UserResource {
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> modifyUser(@PathVariable String id, @RequestBody UsuarioRequest request) {
-
+        return null;
     }
 
     @PostMapping("")
-    public ResponseEntity<Usuario> saveUser(@ResquestBody UsuarioRequest request) {
+    public ResponseEntity<Usuario> saveUser(@RequestBody UsuarioRequest request) {
         Usuario user = userService.saveUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Uuario> deleteUser(@PathVariable String id) {
+    public ResponseEntity<Usuario> deleteUser(@PathVariable String id) {
         Usuario user = userService.deleteUser(id);
-        return ResponseEntity.body(user);
+        return ResponseEntity.ok().body(user);
     }
 }

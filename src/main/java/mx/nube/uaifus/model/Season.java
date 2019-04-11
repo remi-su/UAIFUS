@@ -39,10 +39,6 @@ public class Season {
     @JoinColumn(name = "idSerie")
     private Serie idSerie;
 
-    @OneToMany(mappedBy = "season")
-    @JsonManagedReference
-    private Set<Episode> Episodes;
-
     public Season() {
 
     }
@@ -83,20 +79,6 @@ public class Season {
     }
 
     /**
-     * @return the Episodes
-     */
-    public Set<Episode> getEpisodes() {
-        return Episodes;
-    }
-
-    /**
-     * @param Episodes the Episodes to set
-     */
-    public void setEpisodes(Set<Episode> Episodes) {
-        this.Episodes = Episodes;
-    }
-
-    /**
      * @param idSeason the idSeason to set
      */
     public void setIdSeason(Integer idSeason) {
@@ -134,7 +116,6 @@ public class Season {
     @Override
     public String toString() {
         return "{" + "idSeason = '" + getIdSeason() + "'," + "nameSeason = '" + getName() + "'," + "rate = '"
-                + getRate() + "'," + "releasedDate = '" + getReleasedDate() + "'," + "Episodes = '" + getEpisodes()
-                + "'" + "}";
+                + getRate() + "'," + "releasedDate = '" + getReleasedDate() + "'" + "}";
     }
 }
