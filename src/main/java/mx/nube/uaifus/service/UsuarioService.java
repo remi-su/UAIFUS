@@ -2,6 +2,7 @@ package mx.nube.uaifus.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import mx.nube.uaifus.exception.RecursoNoEncontradoException;
 import mx.nube.uaifus.exception.UsuarioExistenteException;
@@ -48,7 +49,7 @@ public class UsuarioService {
         return listUsers;
     }
 
-    public Usuario getUserById(String id){
+    public Usuario getUserById(String id) {
         Usuario user = usuarioRepository.findById(id);
 
         if (user == null) {
