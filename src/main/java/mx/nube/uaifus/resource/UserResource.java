@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,21 +17,27 @@ import mx.nube.uaifus.service.UsuarioService;
 /**
  * UserResource
  */
+@RequestMapping("/user")
 @RestController
 public class UserResource {
 
     @Autowired
     private UsuarioService userService;
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<Usuario> getUser(@RequestBody UsuarioRequest request) {
-        Usuario usuario = usuarioRepository.findByUsuario(request.getUsuario());
-
-        if (usuario == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> getUser(@PathVariable String id) {
+        Usuario usuario = userService.getUserById(id);
 
         return ResponseEntity.status(HttpStatus.FOUND).body(usuario);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> modifyUser(@PathVariable String id, @RequestBody UsuarioRequest request) {
+
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Usuario> saveUser(@ResquestBody UsuarioRequest){
+
+    }
 }

@@ -48,6 +48,16 @@ public class UsuarioService {
         return listUsers;
     }
 
+    public Usuario getUserById(String id){
+        Usuario user = usuarioRepository.findById(id);
+
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return user;
+    }
+
     public Usuario getUser(UsuarioRequest request) {
         Usuario usuario = usuarioRepository.findByUsuario(request.getUsuario());
 

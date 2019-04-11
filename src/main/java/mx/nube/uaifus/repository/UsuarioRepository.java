@@ -12,5 +12,7 @@ import mx.nube.uaifus.model.Usuario;
 public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
     public Usuario findByUsuario(String usuario);
 
+    public Usuario findById(String id);
+
     public Usuario findByToken(String token);
 }
