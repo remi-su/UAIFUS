@@ -69,8 +69,8 @@ public class UsuarioService {
         return usuario;
     }
 
-    public Usuario deleteUser(UsuarioRequest request) {
-        Usuario usuario = getUser(request);
+    public Usuario deleteUser(String id) {
+        Usuario usuario = getUserById(id);
         usuarioRepository.delete(usuario);
         return usuario;
     }
