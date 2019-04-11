@@ -40,10 +40,6 @@ public class Serie {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "serie")
-    @JsonManagedReference
-    private Set<Season> seasons;
-
     public Serie() {
 
     }
@@ -88,20 +84,6 @@ public class Serie {
      */
     public Date getReleasedDate() {
         return releasedDate;
-    }
-
-    /**
-     * @return the seasons
-     */
-    public Set<Season> getSeasons() {
-        return seasons;
-    }
-
-    /**
-     * @param seasons the seasons to set
-     */
-    public void setSeasons(Set<Season> seasons) {
-        this.seasons = seasons;
     }
 
     /**
@@ -150,6 +132,6 @@ public class Serie {
     public String toString() {
         return "{" + " id = '" + getIdSerie() + "'" + ", name = '" + getNameSerie() + "'" + ", genre = '" + getGenre()
                 + "'" + ", rate =  '" + getRate() + "'" + ", releasedDate = '" + getReleasedDate() + "'"
-                + ", description = '" + getDescription() + "'," + "seasons = '" + getSeasons() + "'}";
+                + ", description = '" + getDescription() + "'}";
     }
 }
