@@ -23,21 +23,18 @@ public class Serie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idSerie;
+    private Integer id;
 
-    @Column
+    @Column(name = "nameSerie")
     private String nameSerie;
 
-    @Column
+    @Column(name = "genre")
     private String genre;
 
-    @Column
+    @Column(name = "rate")
     private Double rate;
 
-    @Column
-    private Date releasedDate;
-
-    @Column
+    @Column(name = "description")
     private String description;
 
     public Serie() {
@@ -61,8 +58,8 @@ public class Serie {
     /**
      * @return the idSerie
      */
-    public Integer getIdSerie() {
-        return idSerie;
+    public Integer getId() {
+        return id;
     }
 
     /**
@@ -77,13 +74,6 @@ public class Serie {
      */
     public Double getRate() {
         return rate;
-    }
-
-    /**
-     * @return the releasedDate
-     */
-    public Date getReleasedDate() {
-        return releasedDate;
     }
 
     /**
@@ -103,8 +93,8 @@ public class Serie {
     /**
      * @param idSerie the idSerie to set
      */
-    public void setIdSerie(Integer idSerie) {
-        this.idSerie = idSerie;
+    public void setId(Integer idSerie) {
+        this.id = idSerie;
     }
 
     /**
@@ -121,17 +111,9 @@ public class Serie {
         this.rate = rate;
     }
 
-    /**
-     * @param releasedDate the releasedDate to set
-     */
-    public void setReleasedDate(Date releasedDate) {
-        this.releasedDate = releasedDate;
-    }
-
     @Override
     public String toString() {
-        return "{" + " id = '" + getIdSerie() + "'" + ", name = '" + getNameSerie() + "'" + ", genre = '" + getGenre()
-                + "'" + ", rate =  '" + getRate() + "'" + ", releasedDate = '" + getReleasedDate() + "'"
-                + ", description = '" + getDescription() + "'}";
+        return "{" + " id = '" + getId() + "'" + ", name = '" + getNameSerie() + "'" + ", genre = '" + getGenre() + "'"
+                + ", rate =  '" + getRate() + "'" + ", description = '" + getDescription() + "'}";
     }
 }

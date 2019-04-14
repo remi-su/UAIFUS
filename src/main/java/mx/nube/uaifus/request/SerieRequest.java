@@ -1,5 +1,7 @@
 package mx.nube.uaifus.request;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -7,6 +9,8 @@ import javax.validation.constraints.Size;
  * SerieRequest
  */
 public class SerieRequest {
+
+    private Integer id;
 
     @NotBlank
     @Size(max = 50, min = 10)
@@ -18,6 +22,9 @@ public class SerieRequest {
 
     @NotBlank
     private Double rate;
+
+    @NotBlank
+    private String descripcion;
 
     public SerieRequest() {
 
@@ -63,5 +70,33 @@ public class SerieRequest {
      */
     public void setRate(Double rate) {
         this.rate = rate;
+    }
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

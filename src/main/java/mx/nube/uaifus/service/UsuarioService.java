@@ -81,7 +81,6 @@ public class UsuarioService {
         user.setId(request.getId());
         user.setUsuario(request.getUsuario());
         user.setPassword(request.getPassword());
-
         usuarioRepository.save(user);
 
         return user;
