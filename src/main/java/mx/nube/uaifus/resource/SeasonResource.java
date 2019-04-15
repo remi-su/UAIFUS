@@ -3,6 +3,7 @@ package mx.nube.uaifus.resource;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,10 +31,10 @@ public class SeasonResource {
     @GetMapping("/{id}")
     public ResponseEntity<Season> getSeason(@PathVariable Integer id) {
         Season season = seasonService.getSeason(id);
-        return ResponseEntity.ok().body(season);
+        return ResponseEntity.status(HttpStatus.FOUND).body(season);
     }
 
-    @GetMapping("/Serie/{id}")
+    @GetMapping("/serie/{id}")
     public List<Season> getSeasons(@PathVariable Integer id) {
         List<Season> listSeasons = seasonService.getSeasons(id);
         return listSeasons;
@@ -42,7 +43,7 @@ public class SeasonResource {
     @PostMapping("")
     public ResponseEntity<Season> saveSeason(@RequestBody SeasonRequest request) {
         Season newSeason = seasonService.saveSeason(request);
-        return ResponseEntity.ok().body(newSeason);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newSeason);
     }
 
     @DeleteMapping("/{id}")

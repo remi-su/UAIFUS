@@ -22,7 +22,7 @@ import mx.nube.uaifus.service.EpisodeService;
  * EpisodeResource
  */
 @RestController
-@RequestMapping("Episode")
+@RequestMapping("episode")
 public class EpisodeResource {
 
     @Autowired
@@ -34,7 +34,7 @@ public class EpisodeResource {
         return ResponseEntity.status(HttpStatus.FOUND).body(episode);
     }
 
-    @GetMapping("/Season/{id}")
+    @GetMapping("/season/{id}")
     public List<Episode> getEpisodes(@PathVariable Integer id) {
         List<Episode> listEpisodes = episodeService.getEpisodes(id);
         return listEpisodes;
