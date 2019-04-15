@@ -13,6 +13,7 @@ import mx.nube.uaifus.request.UsuarioRequest;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,13 +52,13 @@ public class UsuarioService {
     }
 
     public Usuario getUserById(Integer id) {
-        Usuario user = usuarioRepository.findById(id).get();
+        Optional user = usuarioRepository.findById(id);
 
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (!user.isPresent()) {
+            throw new RecursoNoEncontradoException("User id: " + id);
         }
 
-        return user;
+        return (Usuario) user.get();
     }
 
     public Usuario getUser(UsuarioRequest request) {
@@ -81,6 +82,13 @@ public class UsuarioService {
         user.setId(request.getId());
         user.setUsuario(request.getUsuario());
         user.setPassword(request.getPassword());
+
+        Usuario userTempo = usuarioRepository.findByUsuario(request.getUsuario());
+
+        if (userTempo != null) {
+            throw new UsuarioExistenteException(request.getUsuario());
+        }
+
         usuarioRepository.save(user);
 
         return user;
