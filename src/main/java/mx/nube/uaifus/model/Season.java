@@ -32,9 +32,6 @@ public class Season {
     @Column
     private Double rate;
 
-    @Column
-    private Date releasedDate;
-
     @ManyToOne
     @JoinColumn(name = "idSerie")
     private Serie idSerie;
@@ -72,13 +69,6 @@ public class Season {
     }
 
     /**
-     * @return the releasedDate
-     */
-    public Date getReleasedDate() {
-        return releasedDate;
-    }
-
-    /**
      * @param idSeason the idSeason to set
      */
     public void setIdSeason(Integer idSeason) {
@@ -106,16 +96,9 @@ public class Season {
         this.rate = rate;
     }
 
-    /**
-     * @param releasedDate the releasedDate to set
-     */
-    public void setReleasedDate(Date releasedDate) {
-        this.releasedDate = releasedDate;
-    }
-
     @Override
     public String toString() {
         return "{" + "idSeason = '" + getIdSeason() + "'," + "nameSeason = '" + getName() + "'," + "rate = '"
-                + getRate() + "'," + "releasedDate = '" + getReleasedDate() + "'" + "}";
+                + getRate() + "', " + "Serie: " + getIdSerie() + "}";
     }
 }
