@@ -1,38 +1,26 @@
-package mx.nube.uaifus.model;
+package mx.nube.uaifus.request;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 /**
- * Capitulo
+ * EpisodeRequest
  */
-@Entity
-@Table(name = "episodes")
-public class Episode {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class EpisodeRequest {
+
     private Integer idEpisode;
 
-    @Column
+    private Integer idSeason;
+
+    @NotBlank
     private String nameEpisode;
 
-    @Column
+    @NotBlank
     private Integer duration;
 
-    @Column
+    @NotBlank
     private String urlVideo;
 
-    @ManyToOne
-    @JoinColumn(name = "idSeason")
-    private Season idSeason;
-
-    public Episode() {
+    public EpisodeRequest() {
 
     }
 
@@ -53,7 +41,7 @@ public class Episode {
     /**
      * @return the idSeason
      */
-    public Season getIdSeason() {
+    public Integer getIdSeason() {
         return idSeason;
     }
 
@@ -88,7 +76,7 @@ public class Episode {
     /**
      * @param idSeason the idSeason to set
      */
-    public void setIdSeason(Season idSeason) {
+    public void setIdSeason(Integer idSeason) {
         this.idSeason = idSeason;
     }
 
@@ -104,12 +92,5 @@ public class Episode {
      */
     public void setUrlVideo(String urlVideo) {
         this.urlVideo = urlVideo;
-    }
-
-    @Override
-    public String toString() {
-        return "{" + "nameEpisode = '" + getNameEpisode() + "'," + "duration = '" + getDuration() + "',"
-                + "urlVideo = '" + getUrlVideo() + "'," + "idEpisode = '" + getIdEpisode() + "'," + "idSeason = '"
-                + getIdSeason() + "'" + "}";
     }
 }

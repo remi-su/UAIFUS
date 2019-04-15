@@ -54,8 +54,7 @@ public class SeasonService {
     }
 
     public Season modifySeason(SeasonRequest request) {
-        Season changeSeason = new Season();
-        changeSeason.setIdSeason(request.getIdSeason());
+        Season changeSeason = seasonRepository.findById(request.getIdSeason()).get();
         changeSeason.setName(request.getName());
         changeSeason.setRate(request.getRate());
 
