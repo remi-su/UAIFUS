@@ -3,6 +3,7 @@ package mx.nube.uaifus.resource;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class EpisodeResource {
     @GetMapping("/{id}")
     public ResponseEntity<Episode> getEpisode(@PathVariable Integer id) {
         Episode episode = episodeService.getEpisode(id);
-        return ResponseEntity.ok().body(episode);
+        return ResponseEntity.status(HttpStatus.FOUND).body(episode);
     }
 
     @GetMapping("/Season/{id}")
@@ -42,18 +43,18 @@ public class EpisodeResource {
     @PostMapping("")
     public ResponseEntity<Episode> saveEpisode(@RequestBody EpisodeRequest request) {
         Episode newEpisode = episodeService.saveEpisode(request);
-        return ResponseEntity.ok().body(newEpisode);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newEpisode);
     }
 
     @PutMapping("")
     public ResponseEntity<Episode> modifyEpisode(@RequestBody EpisodeRequest request) {
         Episode oldEpisode = episodeService.modifyEpisode(request);
-        return ResponseEntity.ok().body(oldEpisode);
+        return ResponseEntity.status(HttpStatus.OK).body(oldEpisode);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Episode> deleteEpisode(@PathVariable Integer id) {
         Episode byeEpisode = episodeService.deleteEpisode(id);
-        return ResponseEntity.ok().body(byeEpisode);
+        return ResponseEntity.status(HttpStatus.OK).body(byeEpisode);
     }
 }
