@@ -5,12 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import mx.nube.uaifus.exception.RecursoNoEncontradoException;
 import mx.nube.uaifus.model.Serie;
 import mx.nube.uaifus.repository.SerieRepository;
 import mx.nube.uaifus.request.SerieRequest;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,13 +52,13 @@ public class SerieService {
     }
 
     public Serie getSerie(Integer id) {
-        Serie findSerie = serieRepository.findById(id).get();
+        Optional findSerie = serieRepository.findById(id);
 
-        if (findSerie == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (!findSerie.isPresent()) {
+            throw new RecursoNoEncontradoException("Serie id: " + id);
         }
 
-        return findSerie;
+        return (Serie) findSerie.get();
     }
 
     public Serie deleteSerie(Integer id) {

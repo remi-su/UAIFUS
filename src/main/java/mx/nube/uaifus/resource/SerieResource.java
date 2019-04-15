@@ -31,7 +31,6 @@ public class SerieResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<Serie> getSerie(@PathVariable Integer id) {
-        System.out.println(id);
         Serie serie = serieService.getSerie(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(serie);
     }
@@ -51,7 +50,7 @@ public class SerieResource {
     @PostMapping("")
     public ResponseEntity<Serie> saveSerie(@RequestBody SerieRequest request) {
         Serie nuevaSerie = serieService.saveSerie(request);
-        return ResponseEntity.ok().body(nuevaSerie);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaSerie);
     }
 
     @DeleteMapping("/{id}")
