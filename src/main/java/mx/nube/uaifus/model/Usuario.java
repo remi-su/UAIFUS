@@ -1,11 +1,16 @@
 package mx.nube.uaifus.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "usuarios")
@@ -23,6 +28,10 @@ public class Usuario {
 
     @Column
     private String token;
+
+    @OneToMany(mappedBy = "usuario")
+    @JsonManagedReference
+    private Set<Favourite> favourites;
 
     public Usuario() {
     }
@@ -86,9 +95,24 @@ public class Usuario {
         return token;
     }
 
+    /**
+     * @return the favourites
+     */
+    public Set<Favourite> getFavourites() {
+        return favourites;
+    }
+
+    /**
+     * @param favourites the favourites to set
+     */
+    public void setFavourites(Set<Favourite> favourites) {
+        this.favourites = favourites;
+    }
+
     @Override
     public String toString() {
-        return "{" + " id='" + getId() + "'" + ", usuario='" + getUsuario() + "'" + "}";
+        return "{" + " id='" + getId() + "'" + ", usuario='" + getUsuario() + "', seriesFavoritas: '" + getFavourites()
+                + "'}";
     }
 
 }

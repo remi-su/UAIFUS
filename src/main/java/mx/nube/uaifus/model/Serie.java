@@ -37,6 +37,10 @@ public class Serie {
     @Column(name = "description")
     private String description;
 
+    @OneToMany(mappedBy = "serie")
+    @JsonManagedReference
+    private Set<Favourite> favourites;
+
     public Serie() {
 
     }
@@ -109,6 +113,20 @@ public class Serie {
      */
     public void setRate(Double rate) {
         this.rate = rate;
+    }
+
+    /**
+     * @return the favourites
+     */
+    public Set<Favourite> getFavourites() {
+        return favourites;
+    }
+
+    /**
+     * @param favourites the favourites to set
+     */
+    public void setFavourites(Set<Favourite> favourites) {
+        this.favourites = favourites;
     }
 
     @Override
