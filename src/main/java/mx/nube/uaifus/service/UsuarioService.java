@@ -7,6 +7,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import mx.nube.uaifus.exception.RecursoNoEncontradoException;
 import mx.nube.uaifus.exception.UsuarioExistenteException;
+import mx.nube.uaifus.model.Token;
 import mx.nube.uaifus.model.Usuario;
 import mx.nube.uaifus.repository.UsuarioRepository;
 import mx.nube.uaifus.request.UsuarioRequest;
@@ -14,6 +15,7 @@ import mx.nube.uaifus.request.UsuarioRequest;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,6 +94,27 @@ public class UsuarioService {
         usuarioRepository.save(user);
 
         return user;
+    }
+
+    public Token Login(UsuarioRequest request) {
+        Usuario usuario = usuarioRepository.findByUsuario(request.getUsuario());
+
+        if (usuario == null) {
+            throw new RecursoNoEncontradoException(request.getUsuario());
+        }
+
+        if (usuario.getPassword().compareTo(request.getPassword()) != 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        String token = UUID.randomUUID().toString();
+        usuario.setToken(token);
+        usuarioRepository.save(usuario);
+
+        Token tokenResponse = new Token();
+        tokenResponse.setToken(token);
+
+        return tokenResponse;
     }
 
 }
