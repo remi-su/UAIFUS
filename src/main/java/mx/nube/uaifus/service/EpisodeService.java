@@ -1,9 +1,16 @@
 package mx.nube.uaifus.service;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.support.ResourceRegion;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRange;
 import org.springframework.stereotype.Service;
 
 import mx.nube.uaifus.exception.RecursoNoEncontradoException;
@@ -91,6 +98,56 @@ public class EpisodeService {
         Episode byeEpisode = getEpisode(id);
         episodeRepository.delete(byeEpisode);
         return byeEpisode;
+    }
+
+    public UrlResource getVideoCompleto(Integer id) throws MalformedURLException {
+
+        String urlVideo = getUrlVideo(id);
+        UrlResource video = new UrlResource("file:" + urlVideo);
+
+        return video;
+    }
+
+    public List<Object> getVideoPartes(Integer id, HttpHeaders headers) throws IOException {
+        String urlVideo = getUrlVideo(id);
+        UrlResource video = new UrlResource("file:" + urlVideo);
+        ResourceRegion regio = partirVideo(video, headers);
+        List<Object> lista = new LinkedList<>();
+        lista.add(regio);
+        lista.add(video);
+        return lista;
+    }
+
+    private String getUrlVideo(Integer id) {
+        Optional episodio = episodeRepository.findById(id);
+
+        if (!episodio.isPresent()) {
+            throw new RecursoNoEncontradoException("Episodio");
+        }
+
+        Episode capitulo = (Episode) episodio.get();
+
+        String urlVideo = capitulo.getUrlVideo();
+
+        return urlVideo;
+    }
+
+    private ResourceRegion partirVideo(UrlResource video, HttpHeaders headers) throws IOException {
+        long longitudVideo = video.contentLength();
+        HttpRange rango = headers.getRange().size() > 0 ? headers.getRange().get(0) : null;
+
+        if (rango == null) {
+            long paso = Math.min(1024, longitudVideo);
+            return new ResourceRegion(video, 0, paso);
+        }
+
+        long minimo = rango.getRangeStart(longitudVideo);
+        long maximo = rango.getRangeEnd(longitudVideo);
+
+        long paso = Math.min(1024, maximo - minimo + 1);
+
+        return new ResourceRegion(video, minimo, paso);
+
     }
 
 }
