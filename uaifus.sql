@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-04-2019 a las 01:49:04
+-- Tiempo de generación: 30-04-2019 a las 23:11:21
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.2.12
 
@@ -36,6 +36,13 @@ CREATE TABLE `episodes` (
   `id_season` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `episodes`
+--
+
+INSERT INTO `episodes` (`id_episode`, `name_episode`, `duration`, `url_video`, `id_season`) VALUES
+(1, 'Again', 24, 'videos/isaac.mp4', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +67,13 @@ CREATE TABLE `seasons` (
   `id_Serie` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `seasons`
+--
+
+INSERT INTO `seasons` (`id_season`, `name`, `rate`, `id_Serie`) VALUES
+(1, 'Introduction', 10, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -73,6 +87,13 @@ CREATE TABLE `series` (
   `rate` double DEFAULT NULL,
   `description` varchar(450) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `series`
+--
+
+INSERT INTO `series` (`id`, `name_serie`, `genre`, `rate`, `description`) VALUES
+(1, 'Overlord', 'Isekai', 10, 'The best anime isekai');
 
 -- --------------------------------------------------------
 
@@ -92,7 +113,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `password`, `token`) VALUES
-(2, 'Charlie2', '1234567892', NULL);
+(2, 'Charlie2', '1234567892', 'b59ebf4f-29e8-4272-9b16-4c9478ba5977');
 
 --
 -- Índices para tablas volcadas
@@ -138,25 +159,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `episodes`
 --
 ALTER TABLE `episodes`
-  MODIFY `id_episode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_episode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `seasons`
 --
 ALTER TABLE `seasons`
-  MODIFY `id_season` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_season` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `series`
 --
 ALTER TABLE `series`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
