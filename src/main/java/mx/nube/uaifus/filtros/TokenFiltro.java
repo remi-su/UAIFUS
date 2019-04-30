@@ -34,7 +34,7 @@ public class TokenFiltro extends GenericFilterBean {
 
         Usuario usuarioEncontrado = usuarioRepository.findByToken(token);
 
-        if (usuarioEncontrado != null) {
+        if (usuarioEncontrado != null && token != null && token != "" && !token.isEmpty()) {
 
             Authentication auth = new UsernamePasswordAuthenticationToken(token, null, null);
             SecurityContextHolder.getContext().setAuthentication(auth);
