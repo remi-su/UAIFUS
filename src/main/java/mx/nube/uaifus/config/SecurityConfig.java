@@ -10,10 +10,13 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import mx.nube.uaifus.filtros.TokenFiltro;
 import mx.nube.uaifus.repository.UsuarioRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+    final Logger LOG = LoggerFactory.getLogger(SecurityConfig.class);
     @Autowired
     private UsuarioRepository usuarioRepository;
 

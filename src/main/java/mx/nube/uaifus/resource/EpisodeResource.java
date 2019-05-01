@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.support.ResourceRegion;
@@ -32,6 +34,8 @@ import mx.nube.uaifus.service.EpisodeService;
 @RestController
 @RequestMapping("episode")
 public class EpisodeResource {
+
+    final Logger LOG = LoggerFactory.getLogger(EpisodeResource.class);
 
     @Autowired
     private EpisodeService episodeService;
