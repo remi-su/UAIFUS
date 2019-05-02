@@ -38,12 +38,15 @@ public class FavouriteResource {
     @PostMapping("")
     public ResponseEntity<Favourite> addFavourite(@RequestBody FavouriteRequest request) {
         Favourite favorito = favouriteService.addFavourite(request);
+        LOG.info("Se ha añadido un registro favorito de la serie con id: " + favorito.getSerie().getId()
+                + ", a un usuario con id: " + favorito.getUsuario().getId());
         return ResponseEntity.ok().body(favorito);
     }
 
     @DeleteMapping("")
     public ResponseEntity<Favourite> removeFavourite(@RequestBody FavouriteRequest request) {
         Favourite favorito = favouriteService.removeFavourite(request);
+        LOG.info("Se ha eliminado un registro de tipo Favorito con id: " + favorito.getId());
         return ResponseEntity.ok().body(favorito);
     }
 }

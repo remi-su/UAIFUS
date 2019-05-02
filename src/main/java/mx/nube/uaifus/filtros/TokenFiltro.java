@@ -44,7 +44,7 @@ public class TokenFiltro extends GenericFilterBean {
 
             // Usuario UsuarioQueLlamo = (Usuario)
             // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            System.out.println("Entro al uwu filtro");
+            LOG.info("Alguien acceso correctamente con indentificador valido");
             // Importante
 
         }

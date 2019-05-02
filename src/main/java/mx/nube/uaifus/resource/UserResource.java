@@ -52,24 +52,29 @@ public class UserResource {
     @PutMapping("")
     public ResponseEntity<Usuario> modifyUser(@RequestBody UsuarioRequest request) {
         Usuario user = userService.modifyUser(request);
+        LOG.info("Se ha modificado la información de un Usuario con id: " + user.getId());
         return ResponseEntity.ok().body(user);
     }
 
     @PostMapping("/signup")
     public ResponseEntity<Usuario> saveUser(@RequestBody UsuarioRequest request) {
         Usuario user = userService.saveUser(request);
+        LOG.info("Se ha creado un registro de tipo Usuario con id: " + user.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Usuario> deleteUser(@PathVariable Integer id) {
         Usuario user = userService.deleteUser(id);
+        LOG.info("Se ha eliminado un usuario con id: " + user.getId());
         return ResponseEntity.ok().body(user);
     }
 
     @GetMapping("/login")
     public ResponseEntity<Token> loginUser(@RequestBody UsuarioRequest request) {
         Token token = userService.Login(request);
+        LOG.info("Ha ingresado un usuario con el nombre: " + request.getUsuario() + ", usando el token: "
+                + token.getToken());
         return ResponseEntity.status(HttpStatus.FOUND).body(token);
     }
 }

@@ -39,6 +39,7 @@ public class EpisodeService {
         Optional episode = episodeRepository.findById(id);
 
         if (!episode.isPresent()) {
+            LOG.error("Error ocasionado por la inexistencia de un registro tipo Episodio con id: " + id);
             throw new RecursoNoEncontradoException("Episode id = " + id);
         }
 
@@ -49,6 +50,7 @@ public class EpisodeService {
         Optional ownSeason = seasonRepository.findById(idSeason);
 
         if (!ownSeason.isPresent()) {
+            LOG.error("Error ocasionado por la inexistencia de un registro tipo Season con id: " + idSeason);
             throw new RecursoNoEncontradoException("Season id = " + idSeason);
         }
 
@@ -62,6 +64,8 @@ public class EpisodeService {
         Optional ownSeason = seasonRepository.findById(request.getIdSeason());
 
         if (!ownSeason.isPresent()) {
+            LOG.error(
+                    "Error ocasionado por la inexistencia de un registro tipo Season con id: " + request.getIdSeason());
             throw new RecursoNoEncontradoException("Season id = " + request.getIdSeason());
         }
 
@@ -82,6 +86,8 @@ public class EpisodeService {
         Optional episode = episodeRepository.findById(request.getIdEpisode());
 
         if (!episode.isPresent()) {
+            LOG.error("Error ocasionado por la inexistencia de un registro tipo Episodio con id: "
+                    + request.getIdEpisode());
             throw new RecursoNoEncontradoException("Episode id = " + request.getIdEpisode());
         }
 
@@ -124,6 +130,7 @@ public class EpisodeService {
         Optional episodio = episodeRepository.findById(id);
 
         if (!episodio.isPresent()) {
+            LOG.error("Error ocasionado por la inexistencia de un registro tipo Episodio con id: " + id);
             throw new RecursoNoEncontradoException("Episodio");
         }
 

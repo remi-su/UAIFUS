@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mx.nube.uaifus.model.Season;
 import mx.nube.uaifus.request.SeasonRequest;
+import mx.nube.uaifus.request.VoteRequest;
 import mx.nube.uaifus.service.SeasonService;
 
 /**
@@ -47,18 +48,29 @@ public class SeasonResource {
     @PostMapping("")
     public ResponseEntity<Season> saveSeason(@RequestBody SeasonRequest request) {
         Season newSeason = seasonService.saveSeason(request);
+        LOG.info("Se ha creado un registro de tipo Season con id: " + newSeason.getIdSeason());
         return ResponseEntity.status(HttpStatus.CREATED).body(newSeason);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Season> deleteSeason(@PathVariable Integer id) {
         Season easerSeason = seasonService.deleteSeason(id);
+        LOG.info("Se ha eliminado un registro de tipo Season con id: " + easerSeason.getIdSeason());
         return ResponseEntity.ok().body(easerSeason);
     }
 
     @PutMapping("")
     public ResponseEntity<Season> modifySeason(@RequestBody SeasonRequest request) {
         Season oldSeason = seasonService.modifySeason(request);
+        LOG.info("Se ha modificado la información de una temporada con id: " + oldSeason.getIdSeason());
         return ResponseEntity.ok().body(oldSeason);
+    }
+
+    @PutMapping("/vote")
+    public ResponseEntity<Season> voteSeason(@RequestBody VoteRequest request) {
+        Season season = seasonService.refreshVote(request);
+        LOG.info("Se ha registrado un nuevo voto para la temporada con id: " + season.getIdSeason());
+        return ResponseEntity.ok().body(season);
+
     }
 }

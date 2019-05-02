@@ -53,18 +53,28 @@ public class SerieResource {
     @PostMapping("")
     public ResponseEntity<Serie> saveSerie(@RequestBody SerieRequest request) {
         Serie nuevaSerie = serieService.saveSerie(request);
+        LOG.info("Se ha registrado una nueva serie con id: " + nuevaSerie.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaSerie);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Serie> deleteSerie(@PathVariable Integer id) {
         Serie deletedSerie = serieService.deleteSerie(id);
+        LOG.info("Se ha eliminado el registro de la serie con id: " + deletedSerie.getId());
         return ResponseEntity.ok().body(deletedSerie);
     }
 
     @PutMapping("")
     public ResponseEntity<Serie> modifySerie(@RequestBody SerieRequest request) {
         Serie serie = serieService.modifySerie(request);
+        LOG.info("Se ha modificado la información de la serie con id: " + serie.getId());
+        return ResponseEntity.ok().body(serie);
+    }
+
+    @PutMapping("/vote/{id}")
+    public ResponseEntity<Serie> refreshVoteSerie(@PathVariable Integer id) {
+        Serie serie = serieService.refreshVoting(id);
+        LOG.info("Se ha actualizado la valoración de la serie con id: " + id);
         return ResponseEntity.ok().body(serie);
     }
 }

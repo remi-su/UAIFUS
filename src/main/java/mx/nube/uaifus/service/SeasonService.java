@@ -15,6 +15,7 @@ import mx.nube.uaifus.model.Serie;
 import mx.nube.uaifus.repository.SeasonRepository;
 import mx.nube.uaifus.repository.SerieRepository;
 import mx.nube.uaifus.request.SeasonRequest;
+import mx.nube.uaifus.request.VoteRequest;
 
 /**
  * SeasonService
@@ -32,6 +33,7 @@ public class SeasonService {
         Optional seasonTempo = seasonRepository.findById(id);
 
         if (!seasonTempo.isPresent()) {
+            LOG.error("Error ocasionado por un registro inexistente.");
             throw new RecursoNoEncontradoException("Season id: " + id);
         }
         return (Season) seasonTempo.get();
@@ -41,6 +43,7 @@ public class SeasonService {
         Optional ownSerie = serieRepository.findById(idSerie);
 
         if (!ownSerie.isPresent()) {
+            LOG.error("Error ocasionado por un registro inexistente.");
             throw new RecursoNoEncontradoException("Serie id: " + idSerie);
         }
 
@@ -52,6 +55,7 @@ public class SeasonService {
         Optional ownSerie = serieRepository.findById(request.getIdSerie());
 
         if (!ownSerie.isPresent()) {
+            LOG.error("Error ocasionado por un registro inexistente.");
             throw new RecursoNoEncontradoException("Serie id: " + request.getIdSerie());
         }
 
@@ -74,6 +78,7 @@ public class SeasonService {
     public Season modifySeason(SeasonRequest request) {
         Optional season = seasonRepository.findById(request.getIdSeason());
         if (!season.isPresent()) {
+            LOG.error("Error ocasionado por un registro inexistente.");
             throw new RecursoNoEncontradoException("Season id: " + request.getIdSeason());
         }
         Season changeSeason = (Season) season.get();
@@ -83,5 +88,17 @@ public class SeasonService {
         seasonRepository.save(changeSeason);
 
         return changeSeason;
+    }
+
+    public Season refreshVote(VoteRequest request) {
+        Season season = getSeason(request.getIdSerie());
+        int numVotes = season.getNumVotes();
+        double rate = season.getRate() * numVotes;
+        double newRate = rate + request.getVote();
+        season.setNumVotes(season.getNumVotes() + 1);
+        season.setRate(newRate / season.getNumVotes());
+        seasonRepository.save(season);
+
+        return season;
     }
 }

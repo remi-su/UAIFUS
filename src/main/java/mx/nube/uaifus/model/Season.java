@@ -32,6 +32,9 @@ public class Season {
     @Column
     private Double rate;
 
+    @Column
+    private Integer numVotes;
+
     @ManyToOne
     @JoinColumn(name = "idSerie")
     private Serie idSerie;
@@ -94,6 +97,20 @@ public class Season {
      */
     public void setRate(Double rate) {
         this.rate = rate;
+    }
+
+    /**
+     * @return the numVotes
+     */
+    public Integer getNumVotes() {
+        return numVotes;
+    }
+
+    /**
+     * @param numVotes the numVotes to set
+     */
+    public void setNumVotes(Integer numVotes) {
+        this.numVotes = numVotes;
     }
 
     @Override

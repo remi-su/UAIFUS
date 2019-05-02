@@ -55,24 +55,28 @@ public class EpisodeResource {
     @PostMapping("")
     public ResponseEntity<Episode> saveEpisode(@RequestBody EpisodeRequest request) {
         Episode newEpisode = episodeService.saveEpisode(request);
+        LOG.info("Se ha creado un nuevo episodio con id: " + newEpisode.getIdEpisode());
         return ResponseEntity.status(HttpStatus.CREATED).body(newEpisode);
     }
 
     @PutMapping("")
     public ResponseEntity<Episode> modifyEpisode(@RequestBody EpisodeRequest request) {
         Episode oldEpisode = episodeService.modifyEpisode(request);
+        LOG.info("Se ha modificado la información de un episodio con id: " + oldEpisode.getIdEpisode());
         return ResponseEntity.status(HttpStatus.OK).body(oldEpisode);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Episode> deleteEpisode(@PathVariable Integer id) {
         Episode byeEpisode = episodeService.deleteEpisode(id);
+        LOG.info("Se ha eliminado el registro de un episodio con id: " + byeEpisode.getIdEpisode());
         return ResponseEntity.status(HttpStatus.OK).body(byeEpisode);
     }
 
     @GetMapping("/view/{id}")
     public ResponseEntity<UrlResource> getVideoCompleto(@PathVariable Integer id) throws MalformedURLException {
         UrlResource url = episodeService.getVideoCompleto(id);
+        LOG.info("Se esta solicitando el recurso de un video con id:" + id);
         return ResponseEntity.ok()
                 .contentType(MediaTypeFactory.getMediaType(url).orElse(MediaType.APPLICATION_OCTET_STREAM)).body(url);
     }

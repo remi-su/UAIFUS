@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import mx.nube.uaifus.exception.RecursoNoEncontradoException;
+import mx.nube.uaifus.model.Season;
 import mx.nube.uaifus.model.Serie;
 import mx.nube.uaifus.repository.SerieRepository;
 import mx.nube.uaifus.request.SerieRequest;
@@ -27,6 +28,9 @@ public class SerieService {
 
     @Autowired
     private SerieRepository serieRepository;
+
+    @Autowired
+    private SeasonService seasonService;
 
     public Serie saveSerie(SerieRequest request) {
         Serie nuevaSerie = new Serie();
@@ -56,6 +60,7 @@ public class SerieService {
         Optional findSerie = serieRepository.findById(id);
 
         if (!findSerie.isPresent()) {
+            LOG.error("Ocurrio un error en obtención de un registro.");
             throw new RecursoNoEncontradoException("Serie id: " + id);
         }
 
@@ -79,6 +84,24 @@ public class SerieService {
         serieRepository.save(modifiedSerie);
 
         return modifiedSerie;
+    }
+
+    public Serie refreshVoting(Integer id) {
+        Serie serie = getSerie(id);
+        List<Season> listSeason = seasonService.getSeasons(id);
+        double rate = 0;
+        for (Season sea : listSeason) {
+            rate += sea.getRate();
+        }
+
+        if (!listSeason.isEmpty()) {
+            rate = rate / listSeason.size();
+        }
+
+        serie.setRate(rate);
+        serieRepository.save(serie);
+
+        return serie;
     }
 
 }

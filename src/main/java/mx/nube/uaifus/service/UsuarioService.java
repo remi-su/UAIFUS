@@ -40,6 +40,7 @@ public class UsuarioService {
         Usuario userTempo = usuarioRepository.findByUsuario(request.getUsuario());
 
         if (userTempo != null) {
+            LOG.error("Error ocasionado por una colisión entre registros.");
             throw new UsuarioExistenteException(request.getUsuario());
         }
 
@@ -57,6 +58,7 @@ public class UsuarioService {
         Optional user = usuarioRepository.findById(id);
 
         if (!user.isPresent()) {
+            LOG.error("Error ocasionado por la inexistencia de un registro");
             throw new RecursoNoEncontradoException("User id: " + id);
         }
 
@@ -67,6 +69,7 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findByUsuario(request.getUsuario());
 
         if (usuario == null) {
+            LOG.error("Error ocasionado por la inexistencia de un registro");
             throw new RecursoNoEncontradoException(request.getUsuario());
         }
 
@@ -88,6 +91,7 @@ public class UsuarioService {
         Usuario userTempo = usuarioRepository.findByUsuario(request.getUsuario());
 
         if (userTempo != null) {
+            LOG.error("Error ocasionado por la colisión existencial entre dos registros");
             throw new UsuarioExistenteException(request.getUsuario());
         }
 
@@ -100,10 +104,12 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findByUsuario(request.getUsuario());
 
         if (usuario == null) {
+            LOG.error("Error ocasionado por la inexistencia de un registro");
             throw new RecursoNoEncontradoException(request.getUsuario());
         }
 
         if (usuario.getPassword().compareTo(request.getPassword()) != 0) {
+            LOG.error("Error ocasionado por información mal proporcionada");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
