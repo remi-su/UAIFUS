@@ -22,7 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().httpBasic().disable().authorizeRequests()
-                .antMatchers("/user/login", "/user/signup", "/episode/view/{id}", "/episode/view/{id}/completo")
+                .antMatchers("/credentials/login", "/credentials/signup", "/episode/view/{id}",
+                        "/episode/view/{id}/completo")
                 .permitAll().anyRequest().authenticated().and()
                 .addFilterBefore(new TokenFiltro(usuarioRepository), BasicAuthenticationFilter.class);
     }
