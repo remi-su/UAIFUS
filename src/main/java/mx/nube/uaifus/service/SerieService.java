@@ -56,6 +56,18 @@ public class SerieService {
         return listaSeries;
     }
 
+    public List<Serie> getSeriesByName(String name) {
+        List<Serie> listaSeries = new LinkedList<>();
+        listaSeries = serieRepository.findByNameSerieContaining(name);
+        return listaSeries;
+    }
+
+    public List<Serie> getSerieByRate(Double rate) {
+        List<Serie> listaSeries = new LinkedList<>();
+        listaSeries = serieRepository.findByRate(rate);
+        return listaSeries;
+    }
+
     public Serie getSerie(Integer id) {
         Optional findSerie = serieRepository.findById(id);
 

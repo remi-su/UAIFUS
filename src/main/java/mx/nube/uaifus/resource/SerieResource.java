@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import mx.nube.uaifus.service.SerieService;
  * SerieResource
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/serie")
 public class SerieResource {
 
@@ -42,6 +44,18 @@ public class SerieResource {
     public List<Serie> getSerieByGenre(@PathVariable String genre) {
         List<Serie> series = serieService.getSeriesByGenre(genre);
         return series;
+    }
+
+    @GetMapping("/findName/{name}")
+    public ResponseEntity<List<Serie>> getSeriesByName(@PathVariable String name) {
+        List<Serie> series = serieService.getSeriesByName(name);
+        return ResponseEntity.status(HttpStatus.FOUND).body(series);
+    }
+
+    @GetMapping("findRate/{rate}")
+    public ResponseEntity<List<Serie>> getSeriesByRate(@PathVariable Double rate) {
+        List<Serie> series = serieService.getSerieByRate(rate);
+        return ResponseEntity.status(HttpStatus.FOUND).body(series);
     }
 
     @GetMapping("")

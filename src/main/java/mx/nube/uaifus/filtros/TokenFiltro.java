@@ -33,7 +33,7 @@ public class TokenFiltro extends GenericFilterBean {
 
         HttpServletRequest servRequest = (HttpServletRequest) request;
         String token = servRequest.getHeader(HttpHeaders.AUTHORIZATION);
-
+        LOG.info(token);
         List<Usuario> usuarioEncontrado = usuarioRepository.findByToken(token);
 
         if (usuarioEncontrado != null && token != null && token != "" && !token.isEmpty()
@@ -47,6 +47,8 @@ public class TokenFiltro extends GenericFilterBean {
             LOG.info("Alguien acceso correctamente con indentificador valido");
             // Importante
 
+        } else {
+            LOG.info("Alguien intento acceder con un indentificador invalido");
         }
         chain.doFilter(request, response);
 
