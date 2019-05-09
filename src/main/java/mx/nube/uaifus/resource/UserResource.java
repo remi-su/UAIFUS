@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "*")
 public class UserResource {
 
     final Logger LOG = LoggerFactory.getLogger(UserResource.class);
@@ -57,10 +59,10 @@ public class UserResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Usuario> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
         Usuario user = userService.deleteUser(id);
         LOG.info("Se ha eliminado un usuario con id: " + user.getId());
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.ok().body("Eliminado");
     }
 
 }

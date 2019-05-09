@@ -30,7 +30,7 @@ public class CredentialsResource {
     @Autowired
     private CredentialsService credentialsService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<Token> loginUser(@RequestBody UsuarioRequest request) {
         Token token = credentialsService.Login(request);
         LOG.info("Ha ingresado un usuario con el nombre: " + request.getUsuario() + ", usando el token: "

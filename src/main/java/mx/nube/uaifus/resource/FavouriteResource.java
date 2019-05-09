@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import mx.nube.uaifus.service.FavouriteService;
  * FavouriteResource
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/favourite")
 public class FavouriteResource {
     final Logger LOG = LoggerFactory.getLogger(FavouriteResource.class);
@@ -38,8 +40,8 @@ public class FavouriteResource {
     @PostMapping("")
     public ResponseEntity<Favourite> addFavourite(@RequestBody FavouriteRequest request) {
         Favourite favorito = favouriteService.addFavourite(request);
-        LOG.info("Se ha añadido un registro favorito de la serie con id: " + favorito.getSerie().getId()
-                + ", a un usuario con id: " + favorito.getUsuario().getId());
+        LOG.info("Se ha añadido un registro favorito de la serie con id: " + favorito.getId().getIdSerie()
+                + ", a un usuario con id: " + favorito.getId().getIdUsuario());
         return ResponseEntity.ok().body(favorito);
     }
 

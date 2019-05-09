@@ -72,10 +72,10 @@ public class SerieResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Serie> deleteSerie(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteSerie(@PathVariable Integer id) {
         Serie deletedSerie = serieService.deleteSerie(id);
         LOG.info("Se ha eliminado el registro de la serie con id: " + deletedSerie.getId());
-        return ResponseEntity.ok().body(deletedSerie);
+        return ResponseEntity.ok().body("Eliminado");
     }
 
     @PutMapping("")
